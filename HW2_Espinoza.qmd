@@ -1,27 +1,255 @@
 ---
 title: "HW2"
-author: "DE"
+author: "Daisy Espinoza"
 format: html
 editor: visual
 ---
 
-## Quarto
+## Restaurant Inspections
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+Link to my github repository: https://github.com/daisyesp/HW_PLAN372.git
 
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+###  Loading in Dataset & Packages
 
 ```{r}
-1 + 1
+inspec <- read.csv("restaurant_inspections.csv")
+library(ggplot2)
+library(tidyverse)
 ```
 
-You can add options to executable code like this
+### Inspecting the Dataset
 
 ```{r}
-#| echo: false
-2 * 2
+head(inspec)
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+#### Question 1 ---
+
+\
+To perform a visualization of the distribution of the inspection scores, I created a histogram.\
+The following code uses ggplot() function to create histogram, with data name inspec, and the x-axis as the scoring column "SCORE." Following contains the title for the histogram and for the x and y axis. As for theme/style changes, I used a simpler theme to eliminate grey background, and have a cleaner appearance. Additionally, I made the bins blue, with a black outline to make each bin clearer to detect. I added a range for the x-axis in order to get a closer look at the inspection scores, as they tended to range between 80-100.
+
+```{r}
+ggplot(inspec, aes(x= SCORE))+
+  geom_histogram(fill = "light blue", colour="black")+
+  labs(title = "Distrubution of Inspection Scores", x = "Inspection Scores", y = "Count")+
+  theme_bw()+
+  xlim(80,100)
+
+unique(inspec$SCORE)
+```
+
+#### Question 2 ---
+
+To answer the second question, I first began to adjust the date in the column "RESTAURANTOPENDATE" in order to make it easier to work the date. I used a new function that I learned from an external source called as.POSIXct() to adjust the format that was in this data set that contained a time.\
+I used a similar approach to format the "DATE\_" column. I used the gsub() function to remove the Z in order to use the same as.POSIXct() function to format the dates similar to one another.\
+
+```{r}
+restaurant_inspec <- inspec
+
+restaurant_inspec$RESTAURANTOPENDATE <- as.POSIXct(restaurant_inspec$RESTAURANTOPENDATE, format = "%Y/%m/%d %H:%M:%S", tz="UTC")
+
+restaurant_inspec$DATE_ <- gsub("Z", "", restaurant_inspec$DATE_)
+restaurant_inspec$DATE_ <- as.POSIXct(restaurant_inspec$DATE_, format ="%Y-%m-%dT%H:%M:%S", tz="UTC")
+```
+
+\
+Following, I created a copy of the data set, but with the name "restaurant_inspec_year" to diffrentiate this one from the original data set, as this one contains a new column that contains just the year of the open date of the restaurant, and of the inspection date, in order to subtract one from the other to strip the "age" of the restaurant. This can be seen in the two middle codes. The last chunk of code is taking the formatted dates and subtracting them from one another, and removing any NA values.
+
+```{r}
+restaurant_inspec_year <- restaurant_inspec
+
+restaurant_inspec_year$RESTAURANTOPENDATE <- as.numeric(format(restaurant_inspec_year$RESTAURANTOPENDATE, "%Y"))
+
+restaurant_inspec_year$DATE_ <- as.numeric(format(restaurant_inspec_year$DATE_, "%Y"))
+
+restaurant_inspec_year <- restaurant_inspec_year %>% 
+  filter(!is.na(DATE_) & !is.na(RESTAURANTOPENDATE))%>% 
+  mutate(restaurant_years = DATE_ - RESTAURANTOPENDATE)
+```
+
+Visualizing any trends of restaurant scores to "age" of restaurants;\
+For this portion of the question, I used a scatter plot to visualize any trends. To do this, i used the geom_point() and added appropriate labels to the graph. In addition, there was a single outlier that remained as a score of 0, and therefore I used the ylim() function to zoom into the graph which contained the most of the data points. There appears to be a slight trend when comparing the age of restaurant to their inspection scores. There is a small visible increase in average of scores among the older restaurants.
+
+```{r}
+ggplot(restaurant_inspec_year, aes(x = restaurant_years, y= SCORE)) +
+  geom_point()+
+  labs(title = "Trends in Restaurant Age with Inspection Scores", x= "Age of Restaurant in Years", y= "Inspection Score")+
+  theme_bw()+
+  ylim(75,100)
+```
+
+I want to note that in order to perform the scatter plot I needed to remove any "NA" values contained in the DATE\_ and RESTAURANTOPENDATE. There were a total of 296 values that contained "NA" in the RESTAURANTOPENDATE column, and were therefore removed when plotting.
+
+```{r}
+sum(is.na(restaurant_inspec$DATE_))
+sum(is.na(restaurant_inspec$RESTAURANTOPENDATE))
+```
+
+\
+
+#### Question 3 ---
+
+To begin answering this question I made sure to clean up the values for city names, making sure they remained consistent in spelling and letter case.
+
+```{r}
+restaurant_inspec <- restaurant_inspec %>%
+  mutate(CITY = str_to_upper(CITY))
+
+unique(restaurant_inspec$CITY)
+```
+
+Now that I have cleaned up the names of the city, I will calculate the average inspection scores by cities.\
+I created a table to show the cities in one column, and their averaging inspection scores. I named the object city_avg_score_table, and used the group_by() function to group by cities. Then I used the summarize() function to direct R to produce the averages of the scores using mean.\
+Based off the table, there seems to be varying scores among the different cities. Although there are differences among scores, the variation is not super big.
+
+```{r}
+city_avg_score_table <- restaurant_inspec %>% 
+  group_by(CITY) %>% 
+  summarize(avg_score = mean(SCORE, na.rm = TRUE))
+
+city_avg_score_table
+```
+
+#### Question 4 ---
+
+To answer this question, I begin to clean up Inspector column by making sure the names are consistent with letter casing.
+
+```{r}
+restaurant_inspec$INSPECTOR <- str_to_upper(restaurant_inspec$INSPECTOR)
+
+inspector_scoring <- restaurant_inspec %>% 
+  group_by(INSPECTOR) %>% 
+  summarize(avg_score = mean(SCORE, na.rm = TRUE))
+
+
+```
+
+Visualizing using a bar graph.\
+I made a bar graph, using the geom_col() within a ggplot() function to capture the variation in inspection scores within each inspector. I noticed that the scores ranged from about 80-100, therefore I used ylim() to show the y-axis as a range from 85-100 to better showcase the variation in scores. Additionally, I added appropriate titles to the graph, x and y axis. I tilted the angle of the names of inspectors so that they were not bunched up together, and made the text size smaller.
+
+```{r}
+ggplot(inspector_scoring, aes(x= INSPECTOR, y= avg_score))+
+  geom_col(fill="light blue")+
+  theme_bw()+
+  coord_cartesian(ylim= c(85,100))+
+  labs(title = "Average Inspection Scores by Inspector", x = "Inspector", y= "Inspector Average Score")+
+  theme(axis.text.x = element_text(angle=90, size= 5))
+```
+
+#### Question 5 ---
+
+To find the sample size for each city, I created an object "city_sample" and used the group_by function to group by CITY to find sample sizes among each city. Then I used the summarize function to make a table containing the sample sizes by using n().\
+Based off the table, it is clear that the sample sizes vary a lot with one another. Some sample sizes are as small as 1, while others have over 1000 samples. This is important to consider when calculating averages within the cities as sample sizes are not equal.
+
+```{r}
+city_sample <- restaurant_inspec %>% 
+  group_by(CITY) %>% 
+  summarize(sample_size = n())
+
+city_sample
+```
+
+####  Question 6 ---
+
+To answer this question, I begin with creating a table of the average scores for each facility type. I used the group_by function to group by FACILITYTYPE, then proceeded with summarize() to extract the averages, labeling the column as "avg_score."
+
+```{r}
+facility_scores <- restaurant_inspec %>%
+  group_by(FACILITYTYPE) %>% 
+  summarize(avg_score = mean(SCORE, na.rm = TRUE))
+```
+
+To visualize the table, I generated a bar graph using geom_col(), and used facility type on the x axis, and the average scores for the y axis. I labeled the graph, x and y axis appropriately and added some color and theme styles. The average scores remained high, so therefore I used coord_cartesian() to set my y-axis range from 90-100 to better visualize the differences in averages. Based off the graph, facility type restaurants are not the highest rated scores, in fact they score lower on average compared to other facility types.
+
+```{r}
+ggplot(facility_scores, aes(x= FACILITYTYPE, y= avg_score))+
+  geom_col(fill="light blue")+
+  labs(title = "Average Inspection Scores by Facility Type", x= "Facility Type", y= "Average Inspection Score")+
+  theme_bw()+
+  coord_cartesian(ylim=c(90,100))+
+  theme(axis.text.x = element_text(angle=90, size= 5))
+    
+  
+```
+
+#### Question 7 ---
+
+To answer question 7, I first filtered out facility type to equal restaurants only.
+
+```{r}
+only_restaurant <- restaurant_inspec %>% 
+  filter(FACILITYTYPE == "Restaurant")
+
+```
+
+Part 1 -- Histogram (Restaurants only)
+
+I used ggplot() to make a histogram for the distribution of inspection scores among restaurants. I set the range of the x-axis using xlim() to 80-100 to get a better visual of the distribution, as all the scores ranged higher. Additionally, I added appropriate titles to the graph, x and y axis, and added coloring and theme styles.
+
+```{r}
+ggplot(only_restaurant, aes(x=SCORE))+
+  geom_histogram(fill = "light blue", colour = "black")+
+  theme_bw()+
+  xlim(c(80,100))+
+  labs(title = "Dsitrubbtuion of Inspection Scores (Restaurants Only)", x= "Inspection Score", y= "Restaurant Count")
+```
+
+Part 2 --- Older vs Newer Restaurant Inspection Scores.\
+I created an object "only_restaurant_years" to store a version of the inspection data set that contained the years of the restaurant to filter it so that it only shows years for restaurant facilities.\
+Then I made a scatter plot using geom_point() in a ggplot function. I used ylim() to set a range of 75-100, given that the data remained in a higher range and would make it easier to observe any trends.
+
+```{r}
+only_restaurant_years <- restaurant_inspec_year %>% 
+  filter(FACILITYTYPE == "Restaurant")
+
+ggplot(only_restaurant_years, aes(x= restaurant_years, y = SCORE))+
+  geom_point(size = 1)+
+  theme_bw()+
+  coord_cartesian(ylim=c(75,100))+
+  labs(title = "Trends in Years of Operation for Food-Service Establishments' with Inspection Scores", x= "Years of Operation (Restaurants Only)", y= "Inspection Scores")
+```
+
+\
+Part 3 --- Inspection Scores by City\
+Based off the table of the average inspection scores by city for restaurants only, there still appears to be a variation among inspection scores among different cities.
+
+```{r}
+only_restaurant_city_scores <- only_restaurant %>% 
+  group_by(CITY) %>% 
+  summarize(avg_score = mean(SCORE, na.rm = TRUE))
+
+only_restaurant_city_scores
+```
+
+Part 4 --- Inspection Score Variation Among Inspectors (Restaurants Only)
+
+I created an object containing the average inspection scores among inspectors for restaurants only using my "only_restaurant" data set, to use the group_by() function to summarize the score averages. \
+Inspection scores still seem to vary among inspectors even when just looking at restaurant facilities only.
+
+```{r}
+only_restaurant_inspectors <- only_restaurant %>% 
+  group_by(INSPECTOR) %>% 
+  summarize (avg_score = mean(SCORE, na.rm = TRUE))
+
+ggplot(only_restaurant_inspectors, aes(x= INSPECTOR, y= avg_score))+
+  geom_col(fill= "light blue", colour= "black")+
+  theme_bw()+
+  coord_cartesian(ylim=c(80,100))+
+   theme(axis.text.x = element_text(angle=90, size= 5))+
+  labs(title= "Average Inspection Scores by Inspectors (Restaurants Only)", x= "Inspector", y= "Average Inspection Score")
+```
+
+Part 5 --- Sample Size (Restaurants Only)
+
+Based off the table, it appears sample sizes still vary widely when just looking at restaurant facility types. This can explain why variation exists in average inspection scores among cities.
+
+```{r}
+only_restaurant_samplesize <- only_restaurant %>% 
+  group_by(CITY) %>% 
+  summarize(count=n())
+```
+
+#### Reflection (External Sources)
+
+I used two external sources that assisted me with specific functions that I felt was needed to achieve my end goal. My first source, Rdocumentation, I learned about a new function, and applied it to format my dates as needed. The function is called as.POSIXct(), which is a date-time conversion function, and I was able to use it to help me clean up the format of the date column in my data set. I was able to learn about the different functions that are applied to different formattings with dates, and the differences in the arguments. The second source I used, ggplot2, helped me to learn about a new function that corresponds to a similar function we have learned about in class, ylim(). The function I learned about is coord_cartesian(). As I was creating bar graphs, and wanted to use ylim() to set a range in my y-axis, I continued to receive an error. I learned about this function, which is needed in certain circumstances, which was the case when I was creating visualizations. I incorporated coord_cartesian() with ylim() in order to achieve my result, and was able to successfully incorporate it into my ggplot graph. In addition to the first source I used, Rdocumentation, I also learned about another new function, n(), which provides a sample size in a data set. I figured there was an easier way to count the number of samples in a given data set, and so I was able to learn about n(). This is a function I feel will be very useful in the future, and will continue to be a tool that I will utilize if needed again. Through completing this assignment, I was able to learn about external sources that serve as guides to learning and utilizing functions in RStudio. These sources were very helpful to assisting me with portions of my code, and taught me new functions that I felt were useful tools!

@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Daisy Espinoza">
+
+<title>HW2</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="HW2_Espinoza_files/libs/clipboard/clipboard.min.js"></script>
+<script src="HW2_Espinoza_files/libs/quarto-html/quarto.js"></script>
+<script src="HW2_Espinoza_files/libs/quarto-html/popper.min.js"></script>
+<script src="HW2_Espinoza_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="HW2_Espinoza_files/libs/quarto-html/anchor.min.js"></script>
+<link href="HW2_Espinoza_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="HW2_Espinoza_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="HW2_Espinoza_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="HW2_Espinoza_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="HW2_Espinoza_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">HW2</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Daisy Espinoza </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="restaurant-inspections" class="level2">
+<h2 class="anchored" data-anchor-id="restaurant-inspections">Restaurant Inspections</h2>
+<p>Link to my github repository: https://github.com/daisyesp/HW_PLAN372.git</p>
+<section id="loading-in-dataset-packages" class="level3">
+<h3 class="anchored" data-anchor-id="loading-in-dataset-packages">Loading in Dataset &amp; Packages</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>inspec <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"restaurant_inspections.csv"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.3     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ lubridate 1.9.2     ✔ tibble    3.2.1
+✔ purrr     1.0.2     ✔ tidyr     1.3.0
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+</div>
+</section>
+<section id="inspecting-the-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="inspecting-the-dataset">Inspecting the Dataset</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(inspec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  OBJECTID     HSISID SCORE                DATE_
+1 25137654 4092021735  97.0 2017-10-22T04:00:00Z
+2 25115128 4092013943  96.0 2019-02-27T05:00:00Z
+3 25123164 4092021636  98.5 2019-03-04T05:00:00Z
+4 25128895 4092021737  90.5 2019-03-23T04:00:00Z
+5 25124786 4092021680  97.5 2019-04-24T04:00:00Z
+6 25108274 4092013061  98.0 2019-05-14T04:00:00Z
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     DESCRIPTION
+1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           &lt;NA&gt;
+2 *Notice* Effective January 1, 2019, the NC Food Code 3-501.16 (A)(2)(b)(ii) NOW requires equipment to be upgraded or replaced to maintain food at a temperature of 41 degrees F or less. If you have any questions/concerns, please feel free to call 919-868-6416 or email meghan.scott@wakegov.com\n\nNOTE: Facility has 3 dial-top thermometers that are calibrated accurately. Recommend obtaining a digital thermometer for faster temperature assessment of foods delivered for lunches.
+3                                                                                                                                                                                                                                                                                                           *NOTICE* AS OF JANUARY 1, 2019, THE NC FOOD CODE 3-501.16 (A)(2)(b)(ii) NOW REQUIRES EQUIPMENT TO BE UPGRADED OR REPLACED TO MAINTAIN FOOD AT A TEMPERATURE OF 41 DEGREES F OR LESS.
+4                                                                                                                                                                                                                                                                                                                                         Opening check list is needed so that management is aware of deficiencies (such as No paper towels). Food temperature recorded upon delivery is needed.
+5                                                                                                                                                                                                                                 *NOTICE* AS OF JANUARY 1, 2019, THE NC FOOD CODE 3-501.16 (A)(2)(b)(ii) NOW REQUIRES EQUIPMENT TO BE UPGRADED OR REPLACED TO MAINTAIN FOOD AT A TEMPERATURE OF 41 DEGREES F OR LESS.\n*Inspector Info: Patricia Sabby/Patricia.Sabby@wakegov.com/919-796-8053*
+6                                                                                                                                                                                                                                                                                                           *NOTICE* AS OF JANUARY 1, 2019, THE NC FOOD CODE 3-501.16 (A)(2)(b)(ii) NOW REQUIRES EQUIPMENT TO BE UPGRADED OR REPLACED TO MAINTAIN FOOD AT A TEMPERATURE OF 41 DEGREES F OR LESS.
+        TYPE      INSPECTOR PERMITID
+1 Inspection  Karla Crowder    13405
+2 Inspection   Meghan Scott    13939
+3 Inspection    Kaitlyn Yow    20554
+4 Inspection   Angela Myers    15506
+5 Inspection Patricia Sabby    14839
+6 Inspection   Maria Powell     8851
+                                         NAME     RESTAURANTOPENDATE       CITY
+1                         THE CENTERLINE CAFE 2013/02/01 05:00:00+00       CARY
+2                St. Raphael Hall Foodservice 2003/12/01 05:00:00+00    RALEIGH
+3 KNIGHTDALE HIGH SCHOOL BASEBALL CONCESSIONS 2010/12/08 05:00:00+00 KNIGHTDALE
+4                            CORNER KICK CAFE 2013/02/20 05:00:00+00       CARY
+5                        WOLF VILLAGE C-STORE 2011/08/12 04:00:00+00    RALEIGH
+6                                     PNC 318 1999/10/29 04:00:00+00    RALEIGH
+  FACILITYTYPE
+1   Food Stand
+2   Restaurant
+3   Food Stand
+4   Food Stand
+5   Food Stand
+6   Restaurant</code></pre>
+</div>
+</div>
+<section id="question-1" class="level4">
+<h4 class="anchored" data-anchor-id="question-1">Question 1 —</h4>
+<p><br>
+To perform a visualization of the distribution of the inspection scores, I created a histogram.<br>
+The following code uses ggplot() function to create histogram, with data name inspec, and the x-axis as the scoring column “SCORE.” Following contains the title for the histogram and for the x and y axis. As for theme/style changes, I used a simpler theme to eliminate grey background, and have a cleaner appearance. Additionally, I made the bins blue, with a black outline to make each bin clearer to detect. I added a range for the x-axis in order to get a closer look at the inspection scores, as they tended to range between 80-100.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(inspec, <span class="fu">aes</span>(<span class="at">x=</span> SCORE))<span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"light blue"</span>, <span class="at">colour=</span><span class="st">"black"</span>)<span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distrubution of Inspection Scores"</span>, <span class="at">x =</span> <span class="st">"Inspection Scores"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)<span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">80</span>,<span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 row containing non-finite outside the scale range
+(`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing missing values or values outside the scale range
+(`geom_bar()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="HW2_Espinoza_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(inspec<span class="sc">$</span>SCORE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  97.0  96.0  98.5  90.5  97.5  98.0 100.0  99.5  95.0  88.0  90.0  96.5
+[13]  91.0  91.5  94.0  93.5  99.0  94.5  92.5  95.5  93.0  92.0  89.5  88.5
+[25]  84.5  89.0  85.0  87.0  85.5  80.5  87.5  86.5   0.0  84.0</code></pre>
+</div>
+</div>
+</section>
+<section id="question-2" class="level4">
+<h4 class="anchored" data-anchor-id="question-2">Question 2 —</h4>
+<p>To answer the second question, I first began to adjust the date in the column “RESTAURANTOPENDATE” in order to make it easier to work the date. I used a new function that I learned from an external source called as.POSIXct() to adjust the format that was in this data set that contained a time.<br>
+I used a similar approach to format the “DATE_” column. I used the gsub() function to remove the Z in order to use the same as.POSIXct() function to format the dates similar to one another.<br>
+</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>restaurant_inspec <span class="ot">&lt;-</span> inspec</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>restaurant_inspec<span class="sc">$</span>RESTAURANTOPENDATE <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(restaurant_inspec<span class="sc">$</span>RESTAURANTOPENDATE, <span class="at">format =</span> <span class="st">"%Y/%m/%d %H:%M:%S"</span>, <span class="at">tz=</span><span class="st">"UTC"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>restaurant_inspec<span class="sc">$</span>DATE_ <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"Z"</span>, <span class="st">""</span>, restaurant_inspec<span class="sc">$</span>DATE_)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>restaurant_inspec<span class="sc">$</span>DATE_ <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(restaurant_inspec<span class="sc">$</span>DATE_, <span class="at">format =</span><span class="st">"%Y-%m-%dT%H:%M:%S"</span>, <span class="at">tz=</span><span class="st">"UTC"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br>
+Following, I created a copy of the data set, but with the name “restaurant_inspec_year” to diffrentiate this one from the original data set, as this one contains a new column that contains just the year of the open date of the restaurant, and of the inspection date, in order to subtract one from the other to strip the “age” of the restaurant. This can be seen in the two middle codes. The last chunk of code is taking the formatted dates and subtracting them from one another, and removing any NA values.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>restaurant_inspec_year <span class="ot">&lt;-</span> restaurant_inspec</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>restaurant_inspec_year<span class="sc">$</span>RESTAURANTOPENDATE <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">format</span>(restaurant_inspec_year<span class="sc">$</span>RESTAURANTOPENDATE, <span class="st">"%Y"</span>))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>restaurant_inspec_year<span class="sc">$</span>DATE_ <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">format</span>(restaurant_inspec_year<span class="sc">$</span>DATE_, <span class="st">"%Y"</span>))</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>restaurant_inspec_year <span class="ot">&lt;-</span> restaurant_inspec_year <span class="sc">%&gt;%</span> </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(DATE_) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(RESTAURANTOPENDATE))<span class="sc">%&gt;%</span> </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">restaurant_years =</span> DATE_ <span class="sc">-</span> RESTAURANTOPENDATE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Visualizing any trends of restaurant scores to “age” of restaurants;<br>
+For this portion of the question, I used a scatter plot to visualize any trends. To do this, i used the geom_point() and added appropriate labels to the graph. In addition, there was a single outlier that remained as a score of 0, and therefore I used the ylim() function to zoom into the graph which contained the most of the data points. There appears to be a slight trend when comparing the age of restaurant to their inspection scores. There is a small visible increase in average of scores among the older restaurants.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(restaurant_inspec_year, <span class="fu">aes</span>(<span class="at">x =</span> restaurant_years, <span class="at">y=</span> SCORE)) <span class="sc">+</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Trends in Restaurant Age with Inspection Scores"</span>, <span class="at">x=</span> <span class="st">"Age of Restaurant in Years"</span>, <span class="at">y=</span> <span class="st">"Inspection Score"</span>)<span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">75</span>,<span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="HW2_Espinoza_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>I want to note that in order to perform the scatter plot I needed to remove any “NA” values contained in the DATE_ and RESTAURANTOPENDATE. There were a total of 296 values that contained “NA” in the RESTAURANTOPENDATE column, and were therefore removed when plotting.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(restaurant_inspec<span class="sc">$</span>DATE_))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(restaurant_inspec<span class="sc">$</span>RESTAURANTOPENDATE))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 296</code></pre>
+</div>
+</div>
+<p><br>
+</p>
+</section>
+<section id="question-3" class="level4">
+<h4 class="anchored" data-anchor-id="question-3">Question 3 —</h4>
+<p>To begin answering this question I made sure to clean up the values for city names, making sure they remained consistent in spelling and letter case.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>restaurant_inspec <span class="ot">&lt;-</span> restaurant_inspec <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">CITY =</span> <span class="fu">str_to_upper</span>(CITY))</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(restaurant_inspec<span class="sc">$</span>CITY)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "CARY"                   "RALEIGH"                "KNIGHTDALE"            
+ [4] "CLAYTON"                "FUQUAY VARINA"          NA                      
+ [7] "GARNER"                 "MORRISVILLE"            "RESEARCH TRIANGLE PARK"
+[10] "RTP"                    "WENDELL"                "APEX"                  
+[13] "WILLOW SPRING"          "HOLLY SPRINGS"          "ROLESVILLE"            
+[16] "ZEBULON"                "WAKE FOREST"            "NEW HILL"              
+[19] "FUQUAY-VARINA"          "ANGIER"                 "NORTH CAROLINA"        
+[22] "MORRISVILE"             "HOLLY SPRING"          </code></pre>
+</div>
+</div>
+<p>Now that I have cleaned up the names of the city, I will calculate the average inspection scores by cities.<br>
+I created a table to show the cities in one column, and their averaging inspection scores. I named the object city_avg_score_table, and used the group_by() function to group by cities. Then I used the summarize() function to direct R to produce the averages of the scores using mean.<br>
+Based off the table, there seems to be varying scores among the different cities. Although there are differences among scores, the variation is not super big.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>city_avg_score_table <span class="ot">&lt;-</span> restaurant_inspec <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(CITY) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg_score =</span> <span class="fu">mean</span>(SCORE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>city_avg_score_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 23 × 2
+   CITY          avg_score
+   &lt;chr&gt;             &lt;dbl&gt;
+ 1 ANGIER             94.5
+ 2 APEX               97.6
+ 3 CARY               97.6
+ 4 CLAYTON            96.1
+ 5 FUQUAY VARINA      97.3
+ 6 FUQUAY-VARINA      97.5
+ 7 GARNER             96.3
+ 8 HOLLY SPRING       99  
+ 9 HOLLY SPRINGS      98.3
+10 KNIGHTDALE         96.2
+# ℹ 13 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="question-4" class="level4">
+<h4 class="anchored" data-anchor-id="question-4">Question 4 —</h4>
+<p>To answer this question, I begin to clean up Inspector column by making sure the names are consistent with letter casing.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>restaurant_inspec<span class="sc">$</span>INSPECTOR <span class="ot">&lt;-</span> <span class="fu">str_to_upper</span>(restaurant_inspec<span class="sc">$</span>INSPECTOR)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>inspector_scoring <span class="ot">&lt;-</span> restaurant_inspec <span class="sc">%&gt;%</span> </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(INSPECTOR) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg_score =</span> <span class="fu">mean</span>(SCORE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Visualizing using a bar graph.<br>
+I made a bar graph, using the geom_col() within a ggplot() function to capture the variation in inspection scores within each inspector. I noticed that the scores ranged from about 80-100, therefore I used ylim() to show the y-axis as a range from 85-100 to better showcase the variation in scores. Additionally, I added appropriate titles to the graph, x and y axis. I tilted the angle of the names of inspectors so that they were not bunched up together, and made the text size smaller.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(inspector_scoring, <span class="fu">aes</span>(<span class="at">x=</span> INSPECTOR, <span class="at">y=</span> avg_score))<span class="sc">+</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill=</span><span class="st">"light blue"</span>)<span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim=</span> <span class="fu">c</span>(<span class="dv">85</span>,<span class="dv">100</span>))<span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Average Inspection Scores by Inspector"</span>, <span class="at">x =</span> <span class="st">"Inspector"</span>, <span class="at">y=</span> <span class="st">"Inspector Average Score"</span>)<span class="sc">+</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>, <span class="at">size=</span> <span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="HW2_Espinoza_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="question-5" class="level4">
+<h4 class="anchored" data-anchor-id="question-5">Question 5 —</h4>
+<p>To find the sample size for each city, I created an object “city_sample” and used the group_by function to group by CITY to find sample sizes among each city. Then I used the summarize function to make a table containing the sample sizes by using n().<br>
+Based off the table, it is clear that the sample sizes vary a lot with one another. Some sample sizes are as small as 1, while others have over 1000 samples. This is important to consider when calculating averages within the cities as sample sizes are not equal.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>city_sample <span class="ot">&lt;-</span> restaurant_inspec <span class="sc">%&gt;%</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(CITY) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">sample_size =</span> <span class="fu">n</span>())</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>city_sample</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 23 × 2
+   CITY          sample_size
+   &lt;chr&gt;               &lt;int&gt;
+ 1 ANGIER                  1
+ 2 APEX                  185
+ 3 CARY                  573
+ 4 CLAYTON                 4
+ 5 FUQUAY VARINA          75
+ 6 FUQUAY-VARINA          39
+ 7 GARNER                133
+ 8 HOLLY SPRING            1
+ 9 HOLLY SPRINGS         106
+10 KNIGHTDALE             81
+# ℹ 13 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="question-6" class="level4">
+<h4 class="anchored" data-anchor-id="question-6">Question 6 —</h4>
+<p>To answer this question, I begin with creating a table of the average scores for each facility type. I used the group_by function to group by FACILITYTYPE, then proceeded with summarize() to extract the averages, labeling the column as “avg_score.”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>facility_scores <span class="ot">&lt;-</span> restaurant_inspec <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(FACILITYTYPE) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg_score =</span> <span class="fu">mean</span>(SCORE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To visualize the table, I generated a bar graph using geom_col(), and used facility type on the x axis, and the average scores for the y axis. I labeled the graph, x and y axis appropriately and added some color and theme styles. The average scores remained high, so therefore I used coord_cartesian() to set my y-axis range from 90-100 to better visualize the differences in averages. Based off the graph, facility type restaurants are not the highest rated scores, in fact they score lower on average compared to other facility types.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(facility_scores, <span class="fu">aes</span>(<span class="at">x=</span> FACILITYTYPE, <span class="at">y=</span> avg_score))<span class="sc">+</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill=</span><span class="st">"light blue"</span>)<span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Average Inspection Scores by Facility Type"</span>, <span class="at">x=</span> <span class="st">"Facility Type"</span>, <span class="at">y=</span> <span class="st">"Average Inspection Score"</span>)<span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">90</span>,<span class="dv">100</span>))<span class="sc">+</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>, <span class="at">size=</span> <span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="HW2_Espinoza_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="question-7" class="level4">
+<h4 class="anchored" data-anchor-id="question-7">Question 7 —</h4>
+<p>To answer question 7, I first filtered out facility type to equal restaurants only.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>only_restaurant <span class="ot">&lt;-</span> restaurant_inspec <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(FACILITYTYPE <span class="sc">==</span> <span class="st">"Restaurant"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Part 1 – Histogram (Restaurants only)</p>
+<p>I used ggplot() to make a histogram for the distribution of inspection scores among restaurants. I set the range of the x-axis using xlim() to 80-100 to get a better visual of the distribution, as all the scores ranged higher. Additionally, I added appropriate titles to the graph, x and y axis, and added coloring and theme styles.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(only_restaurant, <span class="fu">aes</span>(<span class="at">x=</span>SCORE))<span class="sc">+</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"light blue"</span>, <span class="at">colour =</span> <span class="st">"black"</span>)<span class="sc">+</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="dv">80</span>,<span class="dv">100</span>))<span class="sc">+</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Dsitrubbtuion of Inspection Scores (Restaurants Only)"</span>, <span class="at">x=</span> <span class="st">"Inspection Score"</span>, <span class="at">y=</span> <span class="st">"Restaurant Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 row containing non-finite outside the scale range
+(`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing missing values or values outside the scale range
+(`geom_bar()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="HW2_Espinoza_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Part 2 — Older vs Newer Restaurant Inspection Scores.<br>
+I created an object “only_restaurant_years” to store a version of the inspection data set that contained the years of the restaurant to filter it so that it only shows years for restaurant facilities.<br>
+Then I made a scatter plot using geom_point() in a ggplot function. I used ylim() to set a range of 75-100, given that the data remained in a higher range and would make it easier to observe any trends.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>only_restaurant_years <span class="ot">&lt;-</span> restaurant_inspec_year <span class="sc">%&gt;%</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(FACILITYTYPE <span class="sc">==</span> <span class="st">"Restaurant"</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(only_restaurant_years, <span class="fu">aes</span>(<span class="at">x=</span> restaurant_years, <span class="at">y =</span> SCORE))<span class="sc">+</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">75</span>,<span class="dv">100</span>))<span class="sc">+</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Trends in Years of Operation for Food-Service Establishments' with Inspection Scores"</span>, <span class="at">x=</span> <span class="st">"Years of Operation (Restaurants Only)"</span>, <span class="at">y=</span> <span class="st">"Inspection Scores"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="HW2_Espinoza_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><br>
+Part 3 — Inspection Scores by City<br>
+Based off the table of the average inspection scores by city for restaurants only, there still appears to be a variation among inspection scores among different cities.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>only_restaurant_city_scores <span class="ot">&lt;-</span> only_restaurant <span class="sc">%&gt;%</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(CITY) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg_score =</span> <span class="fu">mean</span>(SCORE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>only_restaurant_city_scores</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 21 × 2
+   CITY          avg_score
+   &lt;chr&gt;             &lt;dbl&gt;
+ 1 ANGIER             94.5
+ 2 APEX               97.1
+ 3 CARY               97.3
+ 4 CLAYTON            93  
+ 5 FUQUAY VARINA      96.9
+ 6 FUQUAY-VARINA      97.0
+ 7 GARNER             95.8
+ 8 HOLLY SPRING       99  
+ 9 HOLLY SPRINGS      98.0
+10 KNIGHTDALE         95.1
+# ℹ 11 more rows</code></pre>
+</div>
+</div>
+<p>Part 4 — Inspection Score Variation Among Inspectors (Restaurants Only)</p>
+<p>I created an object containing the average inspection scores among inspectors for restaurants only using my “only_restaurant” data set, to use the group_by() function to summarize the score averages.<br>
+Inspection scores still seem to vary among inspectors even when just looking at restaurant facilities only.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>only_restaurant_inspectors <span class="ot">&lt;-</span> only_restaurant <span class="sc">%&gt;%</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(INSPECTOR) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span> (<span class="at">avg_score =</span> <span class="fu">mean</span>(SCORE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(only_restaurant_inspectors, <span class="fu">aes</span>(<span class="at">x=</span> INSPECTOR, <span class="at">y=</span> avg_score))<span class="sc">+</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill=</span> <span class="st">"light blue"</span>, <span class="at">colour=</span> <span class="st">"black"</span>)<span class="sc">+</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">80</span>,<span class="dv">100</span>))<span class="sc">+</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>, <span class="at">size=</span> <span class="dv">5</span>))<span class="sc">+</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span> <span class="st">"Average Inspection Scores by Inspectors (Restaurants Only)"</span>, <span class="at">x=</span> <span class="st">"Inspector"</span>, <span class="at">y=</span> <span class="st">"Average Inspection Score"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="HW2_Espinoza_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Part 5 — Sample Size (Restaurants Only)</p>
+<p>Based off the table, it appears sample sizes still vary widely when just looking at restaurant facility types. This can explain why variation exists in average inspection scores among cities.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>only_restaurant_samplesize <span class="ot">&lt;-</span> only_restaurant <span class="sc">%&gt;%</span> </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(CITY) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">count=</span><span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="reflection-external-sources" class="level4">
+<h4 class="anchored" data-anchor-id="reflection-external-sources">Reflection (External Sources)</h4>
+<p>I used two external sources that assisted me with specific functions that I felt was needed to achieve my end goal. My first source, Rdocumentation, I learned about a new function, and applied it to format my dates as needed. The function is called as.POSIXct(), which is a date-time conversion function, and I was able to use it to help me clean up the format of the date column in my data set. I was able to learn about the different functions that are applied to different formattings with dates, and the differences in the arguments. The second source I used, ggplot2, helped me to learn about a new function that corresponds to a similar function we have learned about in class, ylim(). The function I learned about is coord_cartesian(). As I was creating bar graphs, and wanted to use ylim() to set a range in my y-axis, I continued to receive an error. I learned about this function, which is needed in certain circumstances, which was the case when I was creating visualizations. I incorporated coord_cartesian() with ylim() in order to achieve my result, and was able to successfully incorporate it into my ggplot graph. In addition to the first source I used, Rdocumentation, I also learned about another new function, n(), which provides a sample size in a data set. I figured there was an easier way to count the number of samples in a given data set, and so I was able to learn about n(). This is a function I feel will be very useful in the future, and will continue to be a tool that I will utilize if needed again. Through completing this assignment, I was able to learn about external sources that serve as guides to learning and utilizing functions in RStudio. These sources were very helpful to assisting me with portions of my code, and taught me new functions that I felt were useful tools!</p>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
